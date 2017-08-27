@@ -1,0 +1,78 @@
+
+  <section id="cart_items">
+		<div class="container">
+		<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#" (click)="setStatus(false)">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+				 
+			</div>
+			 <div class="panel panel-primary">
+             
+			
+			 
+			
+			 
+			 
+			
+				<table class="table">
+				  <div class="panel-heading"> </div>
+					<thead  style="color: #fff;background-color: #337ab7;border-color: #337ab7;">
+						<tr class="cart_menu" >
+							<td class="image">Item</td>
+							<td class="description">description</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr *ngFor="let item of cartItems">
+							<td>
+								<a href=""><img src="assets/images/{{item.image}}" alt=""></a>
+							</td>
+							<td>
+								<h4><a href="">{{item.description}}</a></h4>
+								<p>Web ID: 1089772</p>
+							</td>
+							<td>
+								<p>{{item.unitPrice | currency:'INR'}}</p>
+							</td>
+							<td>
+								<div>
+									 
+									<input #inputVal (blur)="calculate(inputVal.value,item.unitPrice,item)" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									 
+								</div>
+							</td>
+							<td>
+								<p>₹​{{item.total | currency:'INR'}}</p>
+							</td>
+							<td>
+								<a href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+
+						 
+					</tbody>
+				</table>
+			
+			<div class="panel-footer"><span class="cart_total_price">Total<span style="float:right">{{getTotal() | currency:'INR'}}</span></span>
+			 
+			</div>
+			 
+			 
+		</div>
+		
+		</div>
+		
+		 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal3" data-backdrop="static" style="float:right" (click)="modalPop()">Proceed to Checkout</button>
+	</section>
+	
+	
+			 
+			 
+  
