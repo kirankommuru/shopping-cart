@@ -20,10 +20,18 @@ export class ItemComponent{
 		constructor(private itemService: ItemService,private _cacheService: CacheService) { }
 		
 		addItemInCart(id:number): void {
+		
 	    this.itemService.addItem(id);
 		
+		let items= this._cacheService.get('selectedItems');
 		 
         this.cartItems = this.itemService.getSelectedItems();
+        
+        if(this.cartItems!=null && this.cartItems.length===1 && items!=null){
+        	  items.forEach((obj) => {
+				this.cartItems.push(obj);
+		});
+        }
 		console.log("Test>>>>>>>>"+(this.cartItems).length);
 		this._cacheService.set('selectedItems', this.cartItems);
 		if(this.cartItems.length>0){

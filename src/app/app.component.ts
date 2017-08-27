@@ -13,17 +13,19 @@ import { User } from './services/user';
 export class AppComponent implements OnInit{ 
   cartEnable: boolean = false;
  cartItems: Item[] = [];
+ hideCart: boolean = false;
  productsSize: number =0;
  currentUser: User;
-   constructor(private itemService: ItemService,private _cacheService: CacheService) {
+   constructor(private itemService: ItemService,private _cacheService: CacheService,private router: Router) {
 	console.log("cart length>>>>"+this.cartItems.length);
 	 this.ngOnInit();
-	
+	this.cartItems  = this._cacheService.get('selectedItems');
 	
    }
    
    getItemsForCart(): void {
-        this.cartItems = this.itemService.getSelectedItems();
+   		this.cartItems  = this._cacheService.get('selectedItems');
+        //this.cartItems = this.itemService.getSelectedItems();
 		console.log("t1"+this.cartItems);
 		
    }
@@ -54,7 +56,19 @@ export class AppComponent implements OnInit{
 		//this.getWelcomeMsg();
     }
 	
-	 
+	naigateToCart(){
+	this.hideCart = true;
+		this.router.navigate(["/cart"]);
+		
+	} 
 	
+	cartLen():number{
+	let len:number =0;
+		if( this._cacheService.get('selectedItems')!=null){
+			len = this._cacheService.get('selectedItems').length;
+		}
+		return len;
+	}
+		
 }
     

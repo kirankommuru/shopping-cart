@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
    cartItems: Item[] = [];
    total:number = 0;
    currentUser: any;
+   hideCart = false;
    constructor(private itemService: ItemService,private _cacheService: CacheService,public modal: Modal) { 
    this.cartItems = this._cacheService.get('selectedItems');
    }
@@ -27,7 +28,10 @@ export class CartComponent implements OnInit {
 	  console.log(">>>>>>>>>>"+this.cartItems);
    }
    removeItemFromCart(id:number): void {
-        this.itemService.removeItem(id);
+       let item = this.cartItems.find(ob => ob.id === id);
+	   let itemIndex = this.cartItems.indexOf(item);
+       this.cartItems.splice(itemIndex, 1);
+      this._cacheService.set('selectedItems',this.cartItems);
    }
    
    calculate(inputVal:number,price:number,item: any){
